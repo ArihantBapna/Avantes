@@ -23,9 +23,9 @@ client.on("message", message => {
   if (command === 'blah') {
     message.channel.send('Meh.');
   }
-  if(command === 'anonme'){
+  if(command === 'ask'){
       const channel = client.channels.cache.get('770295487198527518');
-      channel.send(args);
+      channel.send(args.join());
   }
 });
 
