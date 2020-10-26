@@ -42,7 +42,7 @@ client.on("message", message => {
           message.channel.send('Subject not found');
       }
     }
-    if(command === 'dbTest'){
+    if(command === 'dbtest'){
       pool.query("SELECT * from some_table", (err, res) => {
         message.channel.send(res);
         pool.end();
