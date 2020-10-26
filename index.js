@@ -43,7 +43,7 @@ client.on("message", message => {
       }
     }
     if(command === 'dbtest'){
-      pool.query("SELECT * from some_table", (err, res) => {
+      pool.query("SELECT * from questions", (err, res) => {
         message.channel.send(res);
         pool.end();
       });
