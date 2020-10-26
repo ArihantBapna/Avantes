@@ -27,6 +27,10 @@ client.on("message", message => {
       const channel = client.channels.cache.get('770295487198527518');
       channel.send(args.join(' '));
   }
+  if(command === 'em'){
+    const channel = client.channels.cache.get('770332770148155392');
+    channel.send(args.join(' '));
+  }
 });
 
 // There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
