@@ -17,26 +17,25 @@ client.on("message", message => {
   const command = args.shift().toLowerCase();
 
   // And our 2 real basic commands!
-  if(command === 'ping') {
-    message.channel.send('Pong!');
-  } else
-  if (command === 'blah') {
-    message.channel.send('Meh.');
-  }
-  if(command === 'ask'){
-      const channel = client.channels.cache.get('770295487198527518');
-      var arrayLength = args.length;
-      var type = args[0];
-      var question = "";
-      for (var i = 1; i < arrayLength; i++) {
-        question += args[i] + " ";
+  
+  if(message.channel.type === 'dm'){
+    if(command === 'ask'){
+        const channel = client.channels.cache.get('770295487198527518');
+        var arrayLength = args.length;
+        var type = args[0];
+        var question = "";
+        for (var i = 1; i < arrayLength; i++) {
+          question += args[i] + " ";
+      }
+      if(type === "em"){
+          const channel = client.channels.cache.get('770332770148155392');
+          channel.send(question);
+      }else{
+          message.channel.send('Subject not found');
+      }
     }
-    if(type === "em"){
-        const channel = client.channels.cache.get('770332770148155392');
-        channel.send(question);
-    }else{
-        message.channel.send('Subject not found');
-    }
+  }else{
+      message.channel.send('I\'m sorry, thats not very anon of you');
   }
 });
 
