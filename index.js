@@ -2,7 +2,7 @@
 require('dotenv').config(); 
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const Pool = require("pg");
+const {Pool} = require("pg");
 
 let connectionString = {
   connectionString: process.env.DATABASE_URL,
