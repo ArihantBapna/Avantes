@@ -42,15 +42,16 @@ client.on("message", message => {
           message.channel.send('Subject not found');
       }
     }
-    else if(command === 'dbTest'){
+    if(command === 'dbTest'){
       pool.query("SELECT * from some_table", (err, res) => {
         message.channel.send(res);
         pool.end();
       });
     }
-    else if(command === 'help'){
+    if(command === 'help'){
         message.channel.send('Syntax: +ask <subject> <question> \n Your question will be posted in the relevant channel by me completely anonymously');
-    }else{
+    }
+    else{
         message.channel.send('Command not found. Use +help for more info');
     }
   }
