@@ -34,7 +34,11 @@ client.on("message", message => {
           message.channel.send('Subject not found');
       }
     }
-  }else{
+    else if(command === 'help'){
+        message.channel.send('Syntax: +ask <subject> <question> \n Your question will be posted in the relevant channel by me completely anonymously');
+    }
+  }
+  else{
       message.channel.send('I\'m sorry, thats not very anon of you');
   }
 });
