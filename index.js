@@ -23,6 +23,9 @@ client.on("message", message => {
   if (command === 'blah') {
     message.channel.send('Meh.');
   }
+  if(command === 'anonme'){
+      client.channels.get('770295487198527518').send(args);
+  }
 });
 
 // There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
