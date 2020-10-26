@@ -25,7 +25,7 @@ client.on("message", message => {
   }
   if(command === 'ask'){
       const channel = client.channels.cache.get('770295487198527518');
-      channel.send(args.join());
+      channel.send(args.join(' '));
   }
 });
 
