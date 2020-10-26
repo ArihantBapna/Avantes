@@ -43,10 +43,7 @@ client.on("message", message => {
       }
     }
     if(command === 'dbtest'){
-      pool.query("SELECT * from questions", (err, res) => {
-        message.channel.send(res);
-        pool.end();
-      });
+      message.channel.send("Pong db");
     }
     if(command === 'help'){
         message.channel.send('Syntax: +ask <subject> <question> \n Your question will be posted in the relevant channel by me completely anonymously');
