@@ -25,11 +25,18 @@ client.on("message", message => {
   }
   if(command === 'ask'){
       const channel = client.channels.cache.get('770295487198527518');
-      channel.send(args.join(' '));
-  }
-  if(command === 'em'){
-    const channel = client.channels.cache.get('770332770148155392');
-    channel.send(args.join(' '));
+      var arrayLength = args.length;
+      var type = args[0];
+      var question = "";
+      for (var i = 1; i < arrayLength; i++) {
+        question += args[i] + " ";
+    }
+    if(type === "em"){
+        const channel = client.channels.cache.get('770332770148155392');
+        channel.send(question);
+    }else{
+        message.channel.send('Subject not found');
+    }
   }
 });
 
