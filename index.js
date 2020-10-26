@@ -24,7 +24,8 @@ client.on("message", message => {
     message.channel.send('Meh.');
   }
   if(command === 'anonme'){
-      client.channels.get('770295487198527518').send(args);
+      const channel = client.channels.cache.get('770295487198527518');
+      channel.send(args);
   }
 });
 
