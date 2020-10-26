@@ -7,6 +7,8 @@ let connectionString = {
   connectionString: process.env.DATABASE_URL,
   };
 
+const pool = new Pool(connectionString);
+
 client.on("ready", () => {
   console.log("I am ready!");
 });
@@ -19,7 +21,7 @@ client.on("message", message => {
   // This is the usual argument parsing we love to use.
   const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-  const pool = new Pool(connectionString);
+
 
   // And our 2 real basic commands!
   
