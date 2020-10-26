@@ -23,6 +23,7 @@
   "homepage": "https://github.com/ArihantBapna/Avantes#readme",
   "dependencies": {
     "discord.js": "^12.4.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "pg": "^8.4.2"
   }
 }

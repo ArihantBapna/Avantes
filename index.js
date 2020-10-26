@@ -3,6 +3,10 @@ require('dotenv').config();
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
+let connectionString = {
+  connectionString: process.env.DATABASE_URL,
+  };
+
 client.on("ready", () => {
   console.log("I am ready!");
 });
@@ -15,6 +19,7 @@ client.on("message", message => {
   // This is the usual argument parsing we love to use.
   const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
+  const pool = new Pool(connectionString);
 
   // And our 2 real basic commands!
   
@@ -34,6 +39,12 @@ client.on("message", message => {
           message.channel.send('Subject not found');
       }
     }
+    else if(command === 'dbTest'){
+      pool.query("SELECT * from some_table", (err, res) => {
+        message.channel.send(res);
+        pool.end();
+      });
+    }
     else if(command === 'help'){
         message.channel.send('Syntax: +ask <subject> <question> \n Your question will be posted in the relevant channel by me completely anonymously');
     }else{
@@ -45,6 +56,4 @@ client.on("message", message => {
   }
 });
 
-// There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
-// and this is what is being used here. If on discord.js v12, it's DISCORD_TOKEN
 client.login(process.env.CLIENT_TOKEN);
