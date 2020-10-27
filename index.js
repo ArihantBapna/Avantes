@@ -6,7 +6,7 @@ const client = new Discord.Client();
 const Pool = require('pg').Pool;
 
 const pool = new Pool({
-  connectionString: "postgres://zmetwwifeybftf:5eb6e48ba17ac2aa3cfb0063c133ea8a0e14fbaf6755426caaa4fa63d2850930@ec2-3-91-139-25.compute-1.amazonaws.com:5432/df049esj9d4bgk"
+  connectionString: process.env.DATABASE_URL
 });
 
 
