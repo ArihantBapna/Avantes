@@ -64,13 +64,13 @@ client.on("message", message => {
       }
       var type = args[0];
       var data = {
-        user : message.author.username,
+        userid : message.author.id,
         question : question,
         subject :  type,
       }
-      console.log("Userid: " +data.user);
-      var sql = 'INSERT INTO questions (subject, question, user) VALUES ($1,$2,$3)'
-      var values = [data.subject,data.question,data.user]
+      console.log("Userid: " +data.userid);
+      var sql = 'INSERT INTO questions (subject, question, userid) VALUES ($1,$2,$3)'
+      var values = [data.subject,data.question,data.userid]
       pool.query(sql,values, (err,results) => {
         if (err){
           message.channel.send("error" +err.message)
