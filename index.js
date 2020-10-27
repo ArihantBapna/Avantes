@@ -83,7 +83,7 @@ client.on("message", message => {
         message.channel.send('Syntax: +ask <subject> <question> \n Your question will be posted in the relevant channel by me completely anonymously');
     }else
     if(command === 'dbget'){
-      pool.query('Select * from answered') 
+      pool.query('Select * from question') 
       .then(testData => { 
           console.log(testData); 
           message.channel.send(testData.rows); 
