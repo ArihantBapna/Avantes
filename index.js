@@ -64,7 +64,7 @@ client.on("message", message => {
       }
       var type = args[0];
       var data = {
-        user : message.member.user.id,
+        user : message.author.id,
         question : question,
         subject :  type,
       }
