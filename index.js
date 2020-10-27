@@ -58,10 +58,36 @@ client.on("message", message => {
       }
     }else
     if(command === 'dbtest'){
-      message.channel.send("Pong db");
+      var question = "";
+        for (var i = 1; i < arrayLength; i++) {
+          question += args[i] + " ";
+      }
+      var type = args[0];
+      var data = {
+        user : message.member.user.id,
+        question : question,
+        subject :  type,
+      }
+      var sql = 'INSERT INTO questions (subject, question, user) VALUES ($1,$2,$3)'
+      var values = [data.subject,data.question,data.user]
+      pool.query(sql,values, (err,results) => {
+        if (err){
+          message.channel.send("error" +err.message)
+          return;
+        }
+        message.channel.send("Uploaded your question successfully");
+      });
+
     }else
     if(command === 'help'){
         message.channel.send('Syntax: +ask <subject> <question> \n Your question will be posted in the relevant channel by me completely anonymously');
+    }else
+    if(command === 'dbget'){
+      pool.query('Select * from answered') 
+      .then(testData => { 
+          console.log(testData); 
+          message.channel.send(testData.rows); 
+      }); 
     }else{
         message.channel.send('Command not found. Use +help for more info');
     }
