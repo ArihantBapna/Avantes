@@ -2,16 +2,31 @@
 require('dotenv').config(); 
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const {Pool} = require("pg");
 
-let connectionString = {
-  connectionString: process.env.DATABASE_URL,
-  };
+const Pool = require('pg').Pool;
 
-const pool = new Pool(connectionString);
+const pool = new Pool({
+  connectionString: "postgres://zmetwwifeybftf:5eb6e48ba17ac2aa3cfb0063c133ea8a0e14fbaf6755426caaa4fa63d2850930@ec2-3-91-139-25.compute-1.amazonaws.com:5432/df049esj9d4bgk"
+});
+
+
 
 client.on("ready", () => {
-  console.log("I am ready!");
+  pool.connect((err, client, release) => { 
+    if (err) { 
+        return console.error( 
+            'Error acquiring client', err.stack) 
+    } 
+    client.query('SELECT NOW()', (err, result) => { 
+        release() 
+        if (err) { 
+            return console.error( 
+                'Error executing query', err.stack) 
+        } 
+        console.log("Connected to Database !") 
+    }); 
+  });
+  console.log("I am ready!"); 
 });
 
 client.on("message", message => {
