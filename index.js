@@ -56,14 +56,13 @@ client.on("message", message => {
       }else{
           message.channel.send('Subject not found');
       }
-    }
+    }else
     if(command === 'dbtest'){
       message.channel.send("Pong db");
-    }
+    }else
     if(command === 'help'){
         message.channel.send('Syntax: +ask <subject> <question> \n Your question will be posted in the relevant channel by me completely anonymously');
-    }
-    else{
+    }else{
         message.channel.send('Command not found. Use +help for more info');
     }
   }
