@@ -31,63 +31,57 @@ client.on("ready", () => {
 
 client.on("message", message => {
   if (message.author.bot) return;
-  // The process.env.PREFIX is your bot's prefix in this case.
   if (message.content.indexOf(process.env.PREFIX) !== 0) return;
 
   // This is the usual argument parsing we love to use.
   const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-
-
-  // And our 2 real basic commands!
   
+  //If a question is dm'd to the bot
   if(message.channel.type === 'dm'){
+
+    //The command is ask (for us +ask)
     if(command === 'ask'){
-        const channel = client.channels.cache.get('770295487198527518');
+
+        //Set values
+
         var arrayLength = args.length;
+        //If you don't have atleast 2 arguments do nothing
+        if(!arrayLength >= 2){
+          message.channel.send("Not enough arguments");
+          return;
+        }
         var type = args[0];
         var question = "";
+        //Iterate over the arguments to form the question string
         for (var i = 1; i < arrayLength; i++) {
           question += args[i] + " ";
-      }
+        }
+        //Store our values in a data object
+        var data = {  
+          userid : message.author.id,
+          question : question,
+          subject :  type,
+        }
+      
+      //Attempt to find the room the user wants to send the message to
       if(type === "em"){
+        //Send the message to that room
           const channel = client.channels.cache.get('770332770148155392');
           channel.send(question);
+        //Start the upload process
+          var sql = 'INSERT INTO questions (subject, question, userid) VALUES ($1,$2,$3)'
+          var values = [data.subject,data.question,data.userid]
+        //upload the message into the db
+          pool.query(sql,values, (err,results) => {
+            if (err){
+              message.channel.send("error" +err.message)
+            }
+            message.channel.send("Your message was sent succesfully");
+          });
       }else{
           message.channel.send('Subject not found');
       }
-    }else
-    if(command === 'dbtest'){
-      var question = "";
-        for (var i = 1; i < arrayLength; i++) {
-          question += args[i] + " ";
-      }
-      var type = args[0];
-      var data = {  
-        userid : message.author.id,
-        question : question,
-        subject :  type,
-      }
-      console.log("Userid: " +data.userid);
-      var sql = 'INSERT INTO questions (subject, question, userid) VALUES ($1,$2,$3)'
-      var values = [data.subject,data.question,data.userid]
-      pool.query(sql,values, (err,results) => {
-        if (err){
-          message.channel.send("error" +err.message)
-        }
-        message.channel.send("Uploaded your question successfully");
-      });
-
-    }else
-    if(command === 'help'){
-        message.channel.send('Syntax: +ask <subject> <question> \n Your question will be posted in the relevant channel by me completely anonymously');
-    }else
-    if(command === 'dbget'){
-      pool.query('Select * from questions') 
-      .then(testData => { 
-          console.log(testData); 
-          message.channel.send(testData.rows); 
-      }); 
     }else{
         message.channel.send('Command not found. Use +help for more info');
     }
