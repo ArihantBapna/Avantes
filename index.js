@@ -84,10 +84,10 @@ client.on("message", message => {
           message.channel.send('Subject not found');
       }
     }else if(command=='help'){
-      message.channel.send('Usage: /ask <subject> <question>');
+      message.channel.send('Usage:' +process.env.PREFIX  +'ask <subject> <question>');
     }
     else{
-        message.channel.send('Command not found. Use +help for more info');
+        message.channel.send('Command not found. Use' +process.env.PREFIX +'help for more info');
     }
   }
   else{
