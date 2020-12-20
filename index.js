@@ -1,4 +1,5 @@
 // This line MUST be first, for discord.js to read the process envs!
+//HI this is Ari
 require('dotenv').config(); 
 const Discord = require("discord.js");
 const client = new Discord.Client();
@@ -82,7 +83,10 @@ client.on("message", message => {
       }else{
           message.channel.send('Subject not found');
       }
-    }else{
+    }if(command=='help'){
+      message.channel.send('Usage: /ask <subject> <question>');
+    }
+    else{
         message.channel.send('Command not found. Use +help for more info');
     }
   }
@@ -90,5 +94,4 @@ client.on("message", message => {
       message.channel.send('I\'m sorry, thats not very anon of you');
   }
 });
-
 client.login(process.env.CLIENT_TOKEN);
