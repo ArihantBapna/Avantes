@@ -83,7 +83,7 @@ client.on("message", message => {
       }else{
           message.channel.send('Subject not found');
       }
-    }if(command=='help'){
+    }else if(command=='help'){
       message.channel.send('Usage: /ask <subject> <question>');
     }
     else{
