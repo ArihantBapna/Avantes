@@ -68,7 +68,7 @@ client.on("message", message => {
       //Attempt to find the room the user wants to send the message to
       if(type === "em"){
         //Send the message to that room
-          const channel = client.channels.cache.get('770332770148155392');
+          const channel = client.channels.cache.get('766400711596048474');
           channel.send(question);
         //Start the upload process
           var sql = 'INSERT INTO questions (subject, question, userid) VALUES ($1,$2,$3)'
@@ -80,6 +80,28 @@ client.on("message", message => {
             }
             message.channel.send("Your message was sent succesfully");
           });
+      }else if(type === "mech"){
+        const channel = client.channels.cache.get('766431944946483260');
+        channel.send(question);
+        var sql = 'INSERT INTO questions (subject, question, userid) VALUES ($1,$2,$3)'
+        var values = [data.subject,data.question,data.userid]
+        pool.query(sql,values, (err,results) => {
+          if (err){
+            message.channel.send("error" +err.message)
+          }
+          message.channel.send("Your message was sent succesfully");
+        });
+      }else if(type === "p1"){
+        const channel = client.channels.cache.get('766401742514028584');
+        channel.send(question);
+        var sql = 'INSERT INTO questions (subject, question, userid) VALUES ($1,$2,$3)'
+        var values = [data.subject,data.question,data.userid]
+        pool.query(sql,values, (err,results) => {
+          if (err){
+            message.channel.send("error" +err.message)
+          }
+          message.channel.send("Your message was sent succesfully");
+        });
       }else if(type === "bot"){
         const channel = client.channels.cache.get('781548324628463617');
         channel.send(question);
