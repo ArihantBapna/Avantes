@@ -80,7 +80,19 @@ client.on("message", message => {
             }
             message.channel.send("Your message was sent succesfully");
           });
-      }else{
+      }else if(type === "bot"){
+        const channel = client.channels.cache.get('781548324628463617');
+        channel.send(question);
+        var sql = 'INSERT INTO questions (subject, question, userid) VALUES ($1,$2,$3)'
+        var values = [data.subject,data.question,data.userid]
+        pool.query(sql,values, (err,results) => {
+          if (err){
+            message.channel.send("error" +err.message)
+          }
+          message.channel.send("Your message was sent succesfully");
+        });
+      }
+      else{
           message.channel.send('Subject not found');
       }
     }else if(command=='help'){
