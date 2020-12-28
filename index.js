@@ -1,7 +1,6 @@
-// This line MUST be first, for discord.js to read the process envs!
-//HI this is Ari
 require('dotenv').config(); 
 const Discord = require("discord.js");
+var fs = require('fs');
 const client = new Discord.Client();
 
 const Pool = require('pg').Pool;
@@ -125,7 +124,33 @@ client.on("message", message => {
     }
   }
   else{
+    if(command==='lockdown'){
+
+      var data = fs.readFileSync('./config.json');
+      var myObj;
+      try{
+        myObj = JSON.parse(data);
+        console.dir(myObj);
+      }catch(err){
+        console.log('There has been an error parsing your JSON');
+        console.log(err);
+      }
+      var myOpt = {
+        status: Math.abs(myObj.status - 1)
+      };
+      var dat = JSON.stringify(myOpt);
+      fs.writeFile('./config.json', data, function (err) {
+        if (err) {
+          console.log('There has been an error saving your configuration data.');
+          console.log(err.message);
+          return;
+        }
+        console.log('Configuration saved successfully.')
+      });
+    }else{
       message.channel.send('I\'m sorry, thats not very anon of you');
+    }
+    
   }
 });
 client.login(process.env.CLIENT_TOKEN);
