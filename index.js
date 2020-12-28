@@ -142,7 +142,7 @@ client.on("message", message => {
         };
       }else{
         myOpt = {
-          status = 0
+          status: 0
         };
       }
       var dat = JSON.stringify(myOpt);
