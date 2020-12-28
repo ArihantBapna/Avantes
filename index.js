@@ -135,9 +135,16 @@ client.on("message", message => {
         console.log('There has been an error parsing your JSON');
         console.log(err);
       }
-      var myOpt = {
-        status: Math.abs(myObj.status - 1)
-      };
+      var myOpt;
+      if(myObj.status == 0){
+        myOpt = {
+          status: 1
+        };
+      }else{
+        myOpt = {
+          status = 0
+        };
+      }
       var dat = JSON.stringify(myOpt);
       fs.writeFile('./config.json', data, function (err) {
         if (err) {
@@ -147,6 +154,7 @@ client.on("message", message => {
         }
         console.log('Configuration saved successfully.')
       });
+
     }else{
       message.channel.send('I\'m sorry, thats not very anon of you');
     }
