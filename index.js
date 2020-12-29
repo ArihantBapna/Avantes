@@ -112,6 +112,17 @@ client.on("message", message => {
           }
           message.channel.send("Your message was sent succesfully");
         });
+      }else if(type === "memes"){
+        const channel = client.channels.cache.get('766431885512671232');
+        channel.send(question);
+        var sql = 'INSERT INTO questions (subject, question, userid) VALUES ($1,$2,$3)'
+        var values = [data.subject,data.question,data.userid]
+        pool.query(sql,values, (err,results) => {
+          if (err){
+            message.channel.send("error" +err.message)
+          }
+          message.channel.send("Your message was sent succesfully");
+        });
       }
       else{
           message.channel.send('Subject not found');
@@ -125,7 +136,7 @@ client.on("message", message => {
   }
   else{
     if(command==='lockdown'){
-
+/*
       var data = fs.readFileSync('./config.json');
       var myObj;
       try{
@@ -154,6 +165,8 @@ client.on("message", message => {
         }
         console.log('Configuration saved successfully.')
       });
+*/
+    
 
     }else{
       message.channel.send('I\'m sorry, thats not very anon of you');
